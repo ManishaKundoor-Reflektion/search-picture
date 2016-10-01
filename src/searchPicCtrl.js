@@ -12,20 +12,23 @@ angular.module('searchPicture', ['ngFileUpload'])
                 type: 'image/jpeg',
                 centerCrop: false
             };
-            $scope.upload(files[0], options).then(function (res) {
+            $scope.save(files[0], options).then(function (res) {
                 $scope.products = res;
             });
         };
 
-        $scope.upload = function (file, options) {
+        $scope.save = function (file, options) {
             var deferred = $q.defer();
             console.log(file);
             //options.resizeIf;//to-do do not resize if already less than 512
             Upload.resize(file, options.width, options.height, options.quality, options.type, null, options.centerCrop).then(function (resizedFile) {
                 Upload.upload({
-                    url: '/api/searchPicture/upload',
+                    url: '/api/searchPicture/save',
                     method: 'POST',
-                    data: {file: resizedFile}
+                    data: {
+                        file: resizedFile,
+                        keyPhrases: ['dress', 'red']
+                    }
                 }).then(function (res) {
                     deferred.resolve(res.data);
                 }, function (err) {

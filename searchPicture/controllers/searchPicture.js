@@ -47,12 +47,12 @@ function SearchPictureController() {
             cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
         }
     });
-    var upload = multer({ //multer settings
+    var save = multer({ //multer settings
         storage: storage
     }).single('file');
 
     function sendPicture(req, res) {
-        upload(req, res, function(err){
+        save(req, res, function(err){
             if(err){
                 return res.status('412').send({err: err});
             }

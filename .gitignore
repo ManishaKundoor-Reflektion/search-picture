@@ -1,0 +1,9 @@
+src/node_modules/
+node_modules/
+uploads/
+*.xml
+*.iml
+*.log
+.idea/workspace.xml
+*.JPG
+npm-debug.log
