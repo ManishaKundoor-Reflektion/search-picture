@@ -1,6 +1,6 @@
 var request = require('request'),
-    multer = require('multer');
-    //multiparty = require('multiparty')
+    multer = require('multer'),
+    multiparty = require('multiparty');
     //_ = require('lodash');
 
 function SearchPictureController() {
@@ -56,25 +56,25 @@ function SearchPictureController() {
 
     function sendPicture(req, res) {
 
-        save(req, res, function(err){
-            if(err){
-                return res.status('412').send({err: err});
-            }
-            console.log(req.body);
-            console.log(req.file);
-            //var form = new multiparty.Form();
-            //form.parse(req, function (err, fields, files) {
-            //    if (err) {
-            //        return res.status('412').send({err: err});
-            //    }
-            //
-            //    var params = req.body;
-            //    console.log(req.body);
-            //    console.log(req.file);
-            //
-            //    var file = _.first(_.get(files, 'file'));
-            //    console.log(file);
-            request.post('http://localhost:8080/api/v1/imgsearch', req.file, function (err, response) {
+        //save(req, res, function(err){
+        //    if(err){
+        //        return res.status('412').send({err: err});
+        //    }
+        //    console.log(req.body);
+        //    console.log(req.file);
+            var form = new multiparty.Form();
+            form.parse(req, function (err, fields, files) {
+                if (err) {
+                    return res.status('412').send({err: err});
+                }
+
+                var params = req.body;
+                console.log(req.body);
+                console.log(req.file);
+
+                var file = _.first(_.get(files, 'file'));
+                console.log(file);
+            request.post('http://localhost:8080/api/v1/imgsearch', file, function (err, response) {
                 if (err) {
                     return res.status('412').send({err: err});
                 } else if (!response) {
