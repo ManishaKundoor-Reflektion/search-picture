@@ -1,7 +1,7 @@
 var request = require('request'),
     multer = require('multer'),
-    multiparty = require('multiparty');
-    //_ = require('lodash');
+    multiparty = require('multiparty'),
+    _ = require('lodash');
 
 function SearchPictureController() {
     var result = [
