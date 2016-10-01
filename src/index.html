@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<title>Home</title>
+	</head>
+	<body ng-app="searchPicture">
+		<h1>Hackathon</h1>
+        <form  ng-controller="searchPicCtrl">
+            <div style="background-color:#ffffff !important;">
+                <button type="button"
+                        class="file-button btn btn-rfk" accept="image/*"
+                        ngf-select="sendPic($files)">
+                    <i class="fa-upload"></i> {{name}}
+                </button>
+
+                <div class="table table-striped-reverse product-table no-margin-bottom margin-top" ng-if="products.length > 0">
+                    <ul >
+                        <li ng-repeat="product in products">
+                            <a href="{{product.url}}">
+                                <img src="{{product.image_url}}" />
+                                {{product.name}}
+                                ${{product.price}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+	</body>
+	<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+	<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+	<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+	<script type="text/javascript" src="searchPicCtrl.js"></script>
+</html>
