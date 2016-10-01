@@ -1,4 +1,7 @@
-var multer = require('multer');
+var request = require('request'),
+    multer = require('multer');
+    //multiparty = require('multiparty')
+    //_ = require('lodash');
 
 function SearchPictureController() {
     var result = [
@@ -52,11 +55,39 @@ function SearchPictureController() {
     }).single('file');
 
     function sendPicture(req, res) {
+
         save(req, res, function(err){
             if(err){
                 return res.status('412').send({err: err});
             }
-            res.send(result);
+            console.log(req.body);
+            console.log(req.file);
+            //var form = new multiparty.Form();
+            //form.parse(req, function (err, fields, files) {
+            //    if (err) {
+            //        return res.status('412').send({err: err});
+            //    }
+            //
+            //    var params = req.body;
+            //    console.log(req.body);
+            //    console.log(req.file);
+            //
+            //    var file = _.first(_.get(files, 'file'));
+            //    console.log(file);
+            request.post('http://localhost:8080/api/v1/imgsearch', req.file, function (err, response) {
+                if (err) {
+                    return res.status('412').send({err: err});
+                } else if (!response) {
+                    return res.status('412').send({err: 'no data from server'});
+                }
+                res.send(response.body.products);
+            });
+
+            //    console.log(fields);
+            //    console.log(files);
+            //    res.send(result);
+            //});
+            //res.send(result);
         });
     }
 
@@ -65,23 +96,3 @@ function SearchPictureController() {
 
 module.exports = new SearchPictureController();
 
-//var form = new multiparty.Form();
-//form.parse(req, function (err, fields, files) {
-//    if (err) {
-//        logger.error(err, 'picture form.parse');
-//        return _sendErrorMessage(err, res);
-//    }
-//
-//    var file = _.first(_.get(files, 'file'));
-//    console.log(file);
-//    //var filePath = _.get(file, 'path');
-//
-//
-//    //searchPicture.sendPicture(file, function (err, response) {
-//    //    if (err) {
-//    //        logger.error(err, 'send picture');
-//    //        return _sendErrorMessage(err, res);
-//    //    }
-//    //    res.send(response);
-//    //});
-//});
