@@ -1,33 +1,67 @@
 <html>
-	<head>
-		<title>Home</title>
-	</head>
-	<body ng-app="searchPicture">
-		<h1>Hackathon</h1>
-        <form  ng-controller="searchPicCtrl">
-            <div style="background-color:#ffffff !important;">
-                <button type="button"
-                        class="file-button btn btn-rfk" accept="image/*"
-                        ngf-select="sendPic($files)">
-                    <i class="fa-upload"></i> {{name}}
-                </button>
-
-                <div class="table table-striped-reverse product-table no-margin-bottom margin-top" ng-if="products.length > 0">
-                    <ul >
-                        <li ng-repeat="product in products">
+<head>
+    <title>Home</title>
+</head>
+<body ng-app="searchPicture">
+<form  ng-controller="searchPicCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12" ng-if="showHeader1" ng-click="showSearch()" >
+                <img src="./images/header1.png" class="image_width"/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div ng-model="showHeader1" ng-if="showHeader1" class="image_width">
+                <img src="./images/header11.png" class="header1 header11"/>
+                <img src="./images/camera2.png" class="header1 header12" type="button"
+                class="file-button btn btn-rfk" accept="image/*"
+                ngf-select="sendPic($files)"/>
+                <img src="./images/header13.png" class="header1"/>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div ng-if="!showHeader1" ng-click="showSearch()">
+                <img src="./images/header2.png" class="image_width"/>
+            </div>
+        </div>
+        <div class="col-md-12" ng-if="products.length <= 0">
+            <a href="http://www.charmingcharlie.com">
+                <img src="images/main_page/body1.png" class="image_width"/>
+            </a>
+        </div>
+        <div class="col-md-12" ng-if="products.length > 0">
+            <img src="./images/result_page/header2.png" class="image_width"/>
+            <ul class="products-grid">
+                <li ng-repeat="product in products" class="double-image">
+                    <div class="list-content">
+                        <div class="product-image">
                             <a href="{{product.url}}">
                                 <img src="{{product.image_url}}" />
-                                {{product.name}}
-                                ${{product.price}}
                             </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </form>
-	</body>
-	<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
-	<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
-	<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
-	<script type="text/javascript" src="searchPicCtrl.js"></script>
+                        </div>
+                        <h2 class="product-name">
+                            <a href="{{product.url}}">
+                                {{product.name}}
+                            </a>
+                        </h2>
+                        <div class="add-to-favorites">
+                            <a href="https://www.charmingcharlie.com/wishlist/index/add/product/109993/form_key/rtZLFuM2DOxGXksL/">
+                                <img class="wish-list" alt="" src="http://cdn-us-ec.yottaa.net/559fc4f7312e585a230002a6/2bb3aa30093b0133136b123dfe2baf36.yottaa.net/v~13.72/skin/frontend/charmingcharlie/default/images/icons/favorites.png?yocs=8_&amp;yoloc=us" data-yo-delaytype="lazy" data-yo-src="http://cdn-us-ec.yottaa.net/559fc4f7312e585a230002a6/2bb3aa30093b0133136b123dfe2baf36.yottaa.net/v~13.72/skin/frontend/charmingcharlie/default/images/icons/favorites.png?yocs=8_&amp;yoloc=us">
+                            </a>
+                        </div>
+                        <div class="price-box">
+                            <span>${{product.price}}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+</body>
+<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+<script type="text/javascript" src="node_modules/ng-file-upload/dist/ng-file-upload-shim.min.js"></script>
+<script type="text/javascript" src="searchPicCtrl.js"></script>
+<link rel = "stylesheet" type = "text/css" href = "main.css" />
 </html>

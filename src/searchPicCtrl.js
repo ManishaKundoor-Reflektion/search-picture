@@ -3,6 +3,11 @@ angular.module('searchPicture', ['ngFileUpload'])
     function($scope, $q, Upload) {
         $scope.name = 'Take Picture';
         $scope.products = [];
+        $scope.showHeader1 = true;
+
+        $scope.showSearch = function (files) {
+            $scope.showHeader1 = !$scope.showHeader1;
+        }
 
         $scope.sendPic = function (files) {
             var options = {
@@ -13,6 +18,7 @@ angular.module('searchPicture', ['ngFileUpload'])
                 centerCrop: false
             };
             $scope.save(files[0], options).then(function (res) {
+                $scope.showHeader1 = false;
                 if (typeof(res.products) === 'object') {
                     $scope.products = Object.keys(res.products).map(function(key) {
                         return res.products[key];
@@ -45,4 +51,5 @@ angular.module('searchPicture', ['ngFileUpload'])
             });
             return deferred.promise;
         };
-}]);
+    }
+]);
