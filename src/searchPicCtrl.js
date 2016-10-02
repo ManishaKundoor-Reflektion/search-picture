@@ -13,16 +13,18 @@ angular.module('searchPicture', ['ngFileUpload'])
                 centerCrop: false
             };
             $scope.save(files[0], options).then(function (res) {
-                //$scope.products = Object.keys(res.products).map(function(key) {
-                //    return res.products[key];
-                //});
-                $scope.products = res;
+                if (typeof(res.products) === 'object') {
+                    $scope.products = Object.keys(res.products).map(function(key) {
+                        return res.products[key];
+                    });
+                } else {
+                    $scope.products = res;
+                }
             });
         };
 
         $scope.save = function (file, options) {
             var deferred = $q.defer();
-            console.log(file);
             //options.resizeIf;//to-do do not resize if already less than 512
             Upload.resize(file, options.width, options.height, options.quality, options.type, null, options.centerCrop).then(function (resizedFile) {
                 Upload.upload({
