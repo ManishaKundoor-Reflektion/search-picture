@@ -13,9 +13,10 @@ angular.module('searchPicture', ['ngFileUpload'])
                 centerCrop: false
             };
             $scope.save(files[0], options).then(function (res) {
-                $scope.products = Object.keys(res.products).map(function(key) {
-                    return res.products[key];
-                });
+                //$scope.products = Object.keys(res.products).map(function(key) {
+                //    return res.products[key];
+                //});
+                $scope.products = res;
             });
         };
 

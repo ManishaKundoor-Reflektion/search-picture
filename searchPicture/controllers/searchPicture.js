@@ -107,6 +107,7 @@ function SearchPictureController() {
                         console.log('Error!');
                     } else {
                         console.log('URL: ' + body);
+                        res.send(body);
                     }
                 });
                 var form1 = req1.form();
