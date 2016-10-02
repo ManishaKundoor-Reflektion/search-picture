@@ -1,7 +1,6 @@
-var request = require('request'),
-    multer = require('multer'),
+var _ = require('lodash'),
+    request = require('request'),
     multiparty = require('multiparty'),
-    _ = require('lodash'),
     fs = require('fs');
 
 function SearchPictureController() {
@@ -68,71 +67,23 @@ function SearchPictureController() {
         }
     };
 
-    var storage = multer.diskStorage({ //multers disk storage settings
-        destination: function (req, file, cb) {
-            cb(null, './uploads')
-        },
-        filename: function (req, file, cb) {
-            var datetimestamp = Date.now();
-            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1])
-        }
-    });
-    var save = multer({ //multer settings
-        storage: storage
-    }).single('file');
-
     function sendPicture(req, res) {
-
-        //save(req, res, function(err){
-        //    if(err){
-        //        return res.status('412').send({err: err});
-        //    }
-        //    console.log(req.body);
-        //    console.log(req.file);
-            var form = new multiparty.Form();
-            form.parse(req, function (err, fields, files) {
+        var form = new multiparty.Form();
+        form.parse(req, function (err, fields, files) {
+            if (err) {
+                return res.status('412').send({err: err});
+            }
+            var file = _.first(_.get(files, 'file'));
+            request.post('http://localhost:8080/api/v1/imgsearch', function (err, resp, body) {
                 if (err) {
                     return res.status('412').send({err: err});
+                } else if (!body) {
+                    console.log('no data from server');
+                    return res.send(result);
+                } else {
+                    res.send(body);
                 }
-
-                var params = req.body;
-                console.log(req.body);
-                console.log(req.file);
-
-                var file = _.first(_.get(files, 'file'));
-                console.log(file);
-
-                var req1 = request.post('http://localhost:8080/api/v1/imgsearch', function (err, resp, body) {
-                    if (err) {
-                        console.log('Error!');
-                    } else {
-                        console.log('URL: ' + body);
-                        res.send(body);
-                    }
-                });
-                var form1 = req1.form();
-                form1.append('file', fs.createReadStream(file.path));
-
-
-            //var reqObj =  {
-            //        url: 'http://localhost:8080/api/v1/imgsearch',
-            //        body: form,
-            //        json: true
-            //    };
-            //request.post(reqObj, function (err, response) {
-            //    if (err) {
-            //        return res.status('412').send({err: err});
-            //    } else if (!response) {
-            //        return res.status('412').send({err: 'no data from server'});
-            //    }
-            //    res.send(response.body.products);
-            //});
-
-            //    console.log(fields);
-            //    console.log(files);
-            //    res.send(result);
-            //});
-            //res.send(result);
+            }).form().append('file', fs.createReadStream(file.path));
         });
     }
 
