@@ -37,7 +37,7 @@ angular.module('searchPicture', ['ngFileUpload'])
                     $scope.tagsData = res.tags;
                     var tags = ['all'];
                     Object.keys(res.tags).forEach(function(tag) {
-                        if (tag.toLowerCase() != 'all') {
+                        if (tag != 'all') {
                             tags.push(tag);
                         }
                     });
@@ -50,7 +50,7 @@ angular.module('searchPicture', ['ngFileUpload'])
         };
 
         $scope.sortByTag = function (tag) {
-            $scope.products = ($scope.tagsData[tag]).map(function(key) {
+            $scope.products = $scope.tagsData[tag].map(function(key) {
                 return $scope.productsData[key];
             });
         };
