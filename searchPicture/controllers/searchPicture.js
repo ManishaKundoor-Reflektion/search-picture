@@ -43,7 +43,7 @@ function SearchPictureController() {
             }
         },
         tags: {
-            default: [
+            all: [
                 "100272636",
                 "100540215",
                 "100170349",
