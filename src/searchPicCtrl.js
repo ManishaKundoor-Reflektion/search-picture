@@ -3,9 +3,12 @@ angular.module('searchPicture', ['ngFileUpload'])
     function($scope, $q, Upload) {
         $scope.name = 'Take Picture';
         $scope.products = [];
+        $scope.tags = [];
+        $scope.tagsData = {};
+        $scope.productsData = {};
         $scope.showHeader1 = true;
 
-        $scope.showSearch = function (files) {
+        $scope.showSearch = function () {
             $scope.showHeader1 = !$scope.showHeader1;
         }
 
@@ -17,15 +20,32 @@ angular.module('searchPicture', ['ngFileUpload'])
                 type: 'image/jpeg',
                 centerCrop: false
             };
+            $scope.file = files[0];
             $scope.save(files[0], options).then(function (res) {
                 $scope.showHeader1 = false;
+
                 if (typeof(res.products) === 'object') {
+                    $scope.productsData = res.products;
                     $scope.products = Object.keys(res.products).map(function(key) {
                         return res.products[key];
                     });
                 } else {
                     $scope.products = res;
                 }
+
+                if (res.tags && Object.keys(res.tags).length > 0) {
+                    $scope.tagsData = res.tags;
+                    $scope.tags = Object.keys(res.tags);
+                    $scope.products = (res.tags.default).map(function(key) {
+                        return $scope.productsData[key];
+                    });
+                }
+            });
+        };
+
+        $scope.sortByTag = function (tag) {
+            $scope.products = ($scope.tagsData[tag]).map(function(key) {
+                return $scope.productsData[key];
             });
         };
 

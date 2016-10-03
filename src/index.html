@@ -31,6 +31,18 @@
         </div>
         <div class="col-md-12" ng-if="products.length > 0">
             <img src="./images/result_page/header2.png" class="image_width"/>
+            <h1>Search results for:</h1>
+            <div class="list-content">
+                <div class="product-image" style="margin-bottom: -90px;">
+                    <img ngf-thumbnail="file" class="upload-file">
+                </div>
+            </div>
+
+            <div ng-if="tags.length > 0" style="margin-left: 20px;">
+                <button ng-repeat="tag in tags" ng-click="sortByTag(tag)" ng-model="tag">
+                    <span>{{tag}}</span>
+                </button>
+            </div>
             <ul class="products-grid">
                 <li ng-repeat="product in products" class="double-image">
                     <div class="list-content">

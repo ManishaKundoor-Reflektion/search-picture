@@ -68,24 +68,24 @@ function SearchPictureController() {
     };
 
     function sendPicture(req, res) {
-        var form = new multiparty.Form();
-        form.parse(req, function (err, fields, files) {
-            if (err) {
-                return res.status('412').send({err: err});
-            }
-            var file = _.first(_.get(files, 'file'));
-            request.post('http://localhost:8080/api/v1/imgsearch', function (err, resp, body) {
-                if (err) {
-                    return res.status('412').send({err: err});
-                } else if (!body) {
-                    console.log('no data from server');
-                    return res.send(result);
-                } else {
-                    res.send(body);
-                }
-            }).form().append('file', fs.createReadStream(file.path));
-        });
-        //return res.send(result);
+        //var form = new multiparty.Form();
+        //form.parse(req, function (err, fields, files) {
+        //    if (err) {
+        //        return res.status('412').send({err: err});
+        //    }
+        //    var file = _.first(_.get(files, 'file'));
+        //    request.post('http://localhost:8080/api/v1/imgsearch', function (err, resp, body) {
+        //        if (err) {
+        //            return res.status('412').send({err: err});
+        //        } else if (!body) {
+        //            console.log('no data from server');
+        //            return res.send(result);
+        //        } else {
+        //            res.send(body);
+        //        }
+        //    }).form().append('file', fs.createReadStream(file.path));
+        //});
+        return res.send(result);
     }
 
     this.sendPicture = sendPicture;
