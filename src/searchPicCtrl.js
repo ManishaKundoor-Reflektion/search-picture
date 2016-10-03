@@ -3,7 +3,7 @@ angular.module('searchPicture', ['ngFileUpload'])
     function($scope, $q, Upload) {
         $scope.name = 'Take Picture';
         $scope.products = [];
-        $scope.tags = [];
+        $scope.tags = ['all'];
         $scope.tagsData = {};
         $scope.productsData = {};
         $scope.showHeader1 = true;
@@ -35,7 +35,11 @@ angular.module('searchPicture', ['ngFileUpload'])
 
                 if (res.tags && Object.keys(res.tags).length > 0) {
                     $scope.tagsData = res.tags;
-                    $scope.tags = Object.keys(res.tags);
+                    $scope.tags.push(Object.keys(res.tags).map(function(tag) {
+                        if (tag != 'all') {
+                            return tag;
+                        }
+                    }));
                     $scope.products = (res.tags.all).map(function(key) {
                         return $scope.productsData[key];
                     });
