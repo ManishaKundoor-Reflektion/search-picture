@@ -56,13 +56,13 @@ angular.module('searchPicture', ['ngFileUpload'])
 
                     if (res.tags && Object.keys(res.tags).length > 0) {
                         $scope.tagsData = res.tags;
-                        var tags = ['all'];
+                        var tags = [];
                         Object.keys(res.tags).forEach(function(tag) {
                             if (tag != 'all') {
                                 tags.push(tag);
                             }
                         });
-                        $scope.tags = tags;
+                        $scope.tags = ['all'].concat(tags.sort());
                         $scope.products = (res.tags.all).map(function(key) {
                             return $scope.productsData[key];
                         });

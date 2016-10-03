@@ -50,7 +50,7 @@ function SearchPictureController() {
                 "100612071",
                 "100229953"
             ],
-            accesories : [
+            tops : [
                 "100540215",
                 "100170349",
                 "100612071",
@@ -64,7 +64,7 @@ function SearchPictureController() {
                 "100540215",
                 "100229953"
             ],
-            color : [
+            shirts : [
                 "100612071",
                 "100272636",
                 "100170349",

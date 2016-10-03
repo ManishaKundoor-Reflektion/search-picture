@@ -48,14 +48,17 @@ body {
 * {
   box-sizing: border-box;
 }
-.product-image {
+
+.product-image-container {
   margin-bottom: 2rem;
-  border-top: 1px solid #000;
   position: relative;
-  padding-left: 15px;
-  padding-right: 15px;
-  height: 450px;
+  padding-left: 33px;
   width: 450px;
+}
+
+.product-image {
+  width: 400px;
+  border-top: 1px solid #000;
 }
 
 .product-name {
@@ -80,7 +83,7 @@ a {
 .add-to-favorites {
   position: relative;
   float: left;
-  width: 25%;
+  width: 27%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 0px;
@@ -98,6 +101,7 @@ h1 {
 }
 
 h2 {
+  text-align:left;
   margin: 0;
   padding: 0;
   color: #000;
@@ -106,18 +110,20 @@ h2 {
 }
 
 .price-box {
+  text-align:left;
   position: relative;
   float: left;
   width: 100%;
   min-height: 1px;
-  padding-left: 15px;
-  padding-left: 0;
+  padding-left: 45px;
   font-size: 35px;
   font-family: "Open Sans",sans-serif;
 }
+
 .wish-list {
   width:50px;
 }
+
 button {
   text-transform: uppercase;
   font-size: 50px;
