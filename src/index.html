@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <div ng-if="tags.length > 0" style="margin-left: 20px;">
+            <div ng-if="tags.length > 0" class="tags">
                 <button ng-repeat="tag in tags" ng-click="sortByTag(tag)" ng-model="tag">
                     <span>{{tag}}</span>
                 </button>
