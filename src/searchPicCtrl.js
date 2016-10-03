@@ -36,7 +36,7 @@ angular.module('searchPicture', ['ngFileUpload'])
                 if (res.tags && Object.keys(res.tags).length > 0) {
                     $scope.tagsData = res.tags;
                     $scope.tags = Object.keys(res.tags);
-                    $scope.products = (res.tags.default).map(function(key) {
+                    $scope.products = (res.tags.all).map(function(key) {
                         return $scope.productsData[key];
                     });
                 }
